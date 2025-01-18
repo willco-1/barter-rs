@@ -68,6 +68,9 @@ impl AccountState {
     pub fn ack_trade(&mut self, trade: Trade<QuoteAsset, InstrumentNameExchange>) {
         self.trades.push(trade);
     }
+
+
+
 }
 
 impl From<UnindexedAccountSnapshot> for AccountState {

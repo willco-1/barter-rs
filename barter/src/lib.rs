@@ -112,6 +112,7 @@ pub enum EngineEvent<
     TradingStateUpdate(TradingState),
     Account(AccountStreamEvent<ExchangeKey, AssetKey, InstrumentKey>),
     Market(MarketStreamEvent<InstrumentKey, MarketKind>),
+    Valuation(ValuationEvent<InstrumentKey>),
 }
 
 impl<MarketKind, ExchangeKey, AssetKey, InstrumentKey>
@@ -130,7 +131,13 @@ impl<MarketKind, ExchangeKey, AssetKey, InstrumentKey> From<MarketEvent<Instrume
         Self::Market(MarketStreamEvent::Item(value))
     }
 }
-
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct ValuationEvent<InstrumentKey> {
+    pub instrument: InstrumentKey,
+    pub valuation_currency: String,
+    pub value: f64,
+    pub timestamp: u64,
+}
 /// Monotonically increasing event sequence. Used to track `Engine` event processing sequence.
 #[derive(
     Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Deserialize, Serialize, Constructor,

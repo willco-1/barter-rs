@@ -26,6 +26,7 @@ pub struct MockExecutionConfig {
     pub initial_state: UnindexedAccountSnapshot,
     pub latency_ms: u64,
     pub fees_percent: Decimal,
+    pub removal_threshold: std::time::Duration,
 }
 
 #[derive(Debug, Constructor)]
